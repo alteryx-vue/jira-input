@@ -25,6 +25,10 @@ A compiled build can be installed with the [.YXI installer here]() or by downloa
 # typically in this location - use this option if you have admin rights on your machine
 cd "c:/Program Files/Alteryx/bin/HtmlPlugins"
 
+# as of Alterxy Designer 2018.1, with admin rights
+# tools now install here when installing for all users
+# cd "c:/ProgramData/Alteryx/Tools"
+
 # or if you don't have admin rights...
 # cd "c:/Users/{user}/AppData/Roaming/Alteryx/Tools"
 
