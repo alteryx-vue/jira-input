@@ -29,7 +29,7 @@ C:\ProgramData\Alteryx\Tools
 ```
 
 ### Choose a location, clone and cd to project
-```
+``` bash
 # as of Designer 2018.1 this is the preferred global directory
 cd C:\ProgramData\Alteryx\Tools
 
