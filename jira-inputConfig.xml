@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<AlteryxJavaScriptPlugin>
+  <EngineSettings EngineDllEntryPoint="engine.html" EngineDll="HTML" SDKVersion="10.1" />
+  <Properties>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Jira Input</Name>
+      <Description>
+Download issues from one or more Jira projects.
+
+- Explicit field selection
+- Comprehensive filtering
+- JQL support
+- Built-in result pagination 
+      </Description>
+      <RootToolName>Jira Input</RootToolName>
+      <ToolVersion>v0.0.0</ToolVersion>
+      <ToolInDb value="false" />
+      <CategoryName>Connectors</CategoryName>
+      <SearchTags>jira,atlassian,vue,vuejs,vuetify,sdk</SearchTags>
+      <Author>Taylor Cox</Author>
+      <Company>github.com/alteryx-vue</Company>
+      <Copyright/>
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+  </Properties>
+  <GuiSettings Help="" Html="index.html" Icon="icon.png" SDKVersion="10.1">
+    <InputConnections/>
+    <OutputConnections>
+      <Connection Name="Issues" AllowMultiple="False" Optional="False" Type="Connection" Label="I"/>
+    </OutputConnections>
+  </GuiSettings>
+</AlteryxJavaScriptPlugin>

@@ -1,0 +1,124 @@
+<template>
+
+  <v-toolbar app dense fixed color="grey lighten-2">
+    <img src="public/banner.png" :alt="appTitle" height="24">
+    <v-spacer></v-spacer>
+
+    <v-tooltip left>
+      <v-btn 
+        icon 
+        class="blue--text text--darken-1" 
+        :disabled="!updateAvail" 
+        slot="activator"
+        @click.native="showInfo">
+        <v-icon>system_update</v-icon>
+      </v-btn>
+      <span>{{ updateBlurb }}</span>
+    </v-tooltip>
+
+    <v-bottom-sheet>
+    
+      <v-btn icon slot="activator">
+          <v-icon medium>info_outline</v-icon>
+      </v-btn>
+
+      <v-card tile>
+        <v-list two-line dark>
+          <v-subheader>Version:<span class="ml-2 blue--text text--lighten-2">{{ curVersion }}</span></v-subheader>
+
+          <v-list-tile href="https://github.com/alteryx-vue/nyt-connector" target="_blank">
+            <v-list-tile-avatar>
+              <v-avatar size="32px" tile>
+                <img src="public/github.png">
+              </v-avatar>
+            </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>View project on GitHub</v-list-tile-title>
+                <v-list-tile-sub-title>github.com/alteryx-vue/nyt-connector</v-list-tile-sub-title>
+              </v-list-tile-content>
+          </v-list-tile>
+
+          <v-divider></v-divider>
+
+          <v-list-tile href="https://vuejs.org" target="_blank">
+            <v-list-tile-avatar>
+              <v-avatar size="32px" tile>
+                <img src="public/vuejs.png">
+              </v-avatar>
+            </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Powered by Vue.js</v-list-tile-title>
+                <v-list-tile-sub-title>Progressive JavaScript Framework</v-list-tile-sub-title>
+              </v-list-tile-content>
+          </v-list-tile>
+
+          <v-divider></v-divider>
+
+          <v-list-tile href="https://next.vuetifyjs.com" target="_blank">
+            <v-list-tile-avatar>
+              <v-avatar size="32px" tile>
+                <img src="public/vuetify.png">
+              </v-avatar>
+            </v-list-tile-avatar>
+              <v-list-tile-content>
+                <v-list-tile-title>Built using Vuetify</v-list-tile-title>
+                <v-list-tile-sub-title>Semantic Material Design Component Framework for Vue.js</v-list-tile-sub-title>
+              </v-list-tile-content>
+          </v-list-tile>
+
+        </v-list>
+      </v-card>
+    </v-bottom-sheet>
+
+
+  </v-toolbar>
+
+</template>
+
+<script>
+  export default {
+    name: 'JiraToolbar',
+    data () {
+      return {
+        toolbarClass: 'grey--text'
+      }
+    },
+    computed: {
+      appTitle() {
+        return this.$store.state.config.title
+      },
+      updateAvail: {
+        get () {
+          return this.$store.state.config.updateAvail
+        },
+        set (value) {
+          this.$store.commit('dismissUpdate')
+        }
+      },
+      moreInfo: {
+        get () {
+          return this.$store.state.config.moreInfo
+        },
+        set (value) {
+          this.$store.commit('updateMoreInfo', value)
+        }
+      },
+      curVersion() {
+          return this.$store.state.config.appVersion
+      },
+      updateBlurb() {
+        if (this.$store.state.config.updateAvail) {
+          return 'Update available!'
+        } else {
+          return 'No updates available'
+        }
+      }
+    },
+    methods: {
+      showInfo() {
+        this.moreInfo = true
+      }
+    }
+  }
+</script>
+
