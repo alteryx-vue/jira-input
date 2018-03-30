@@ -19,20 +19,21 @@ The Jira Input connector for Alteryx downloads project issues from your Jira ins
 
 A compiled build can be installed with the [.YXI installer here]() or by downloading from the [Alteryx Gallery]().  Use the instructions below for installing from source.
 
-### clone to HtmlPlugins or Roaming directory
+### Clone to one of the Alteryx tool directories
 
+Alteryx will typically install tools in one of the following locations:
 ``` bash
-# typically in this location - use this option if you have admin rights on your machine
-cd "c:/Program Files/Alteryx/bin/HtmlPlugins"
+C:\Users\{user}\AppData\Roaming\Alteryx\Tools
+C:\Program Files\Alteryx\bin\HtmlPlugins
+C:\ProgramData\Alteryx\Tools
+```
 
-# as of Alterxy Designer 2018.1, with admin rights
-# tools now install here when installing for all users
-# cd "c:/ProgramData/Alteryx/Tools"
+### Choose a location, clone and cd to project
+```
+# as of Designer 2018.1 this is the preferred global directory
+cd C:\ProgramData\Alteryx\Tools
 
-# or if you don't have admin rights...
-# cd "c:/Users/{user}/AppData/Roaming/Alteryx/Tools"
-
-# clone this repository
+# clone 
 git clone https://github.com/alteryx-vue/jira-input
 
 # cd to project
