@@ -26,7 +26,7 @@
         <v-list two-line dark>
           <v-subheader>Version:<span class="ml-2 blue--text text--lighten-2">{{ curVersion }}</span></v-subheader>
 
-          <v-list-tile href="https://github.com/alteryx-vue/nyt-connector" target="_blank">
+          <v-list-tile href="https://github.com/alteryx-vue/jira-input" target="_blank">
             <v-list-tile-avatar>
               <v-avatar size="32px" tile>
                 <img src="public/github.png">
@@ -34,7 +34,7 @@
             </v-list-tile-avatar>
               <v-list-tile-content>
                 <v-list-tile-title>View project on GitHub</v-list-tile-title>
-                <v-list-tile-sub-title>github.com/alteryx-vue/nyt-connector</v-list-tile-sub-title>
+                <v-list-tile-sub-title>github.com/alteryx-vue/jira-input</v-list-tile-sub-title>
               </v-list-tile-content>
           </v-list-tile>
 
