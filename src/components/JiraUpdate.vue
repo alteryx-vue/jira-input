@@ -8,8 +8,8 @@
           multi-line
         >
           UPDATE AVAILABLE
-          <v-btn 
-            flat 
+          <v-btn
+            flat
             color="yellow"
             @click.native="showInfo"
             >
@@ -24,17 +24,17 @@
           <v-card>
             <div class="headline pl-3 pt-3">
               Update Available<small class="grey--text ml-2">{{ curVersion }}<v-icon>arrow_right</v-icon>{{ updateVersion }}</small>
-              <v-btn 
-                dark 
-                fab 
+              <v-btn
+                dark
+                fab
                 fixed
                 small
-                top 
-                right 
-                color="red darken-1" 
+                top
+                right
+                color="red darken-1"
                 @click.native="moreInfo = false">
                   <v-icon>close</v-icon>
-              </v-btn>                  
+              </v-btn>
             </div>
             <v-card-text class="pt-3">
               <code>{{ updateUrl }}</code><br>
@@ -107,7 +107,7 @@
       },
       updated() {
         // return this.$store.state.ui.version != this.$store.state.config.appVersion
-        return (this.$store.state.ui.version.length > 0 && this.$store.state.ui.version != this.$store.state.config.appVersion);
+        return (this.$store.state.ui.version && this.$store.state.ui.version.length > 0 && this.$store.state.ui.version != this.$store.state.config.appVersion);
       },
       curVersion() {
         return this.$store.state.config.appVersion
