@@ -101,22 +101,18 @@
       },
       username: {
         get () {
-          return atob(this.$store.state.ui.auth).substr(0,atob(this.$store.state.ui.auth).indexOf(':'))
+          return this.$store.state.ui.username
         },
         set (value) {
-          var pass = atob(this.$store.state.ui.auth).substr(atob(this.$store.state.ui.auth).indexOf(':')+1)
-          var auth = btoa(value + ':' + pass)
-          this.$store.commit('updateAuth', auth)
+          this.$store.commit('updateUsername', value)
         }
       },
       password: {
         get () {
-          return atob(this.$store.state.ui.auth).substr(atob(this.$store.state.ui.auth).indexOf(':')+1)
+          return this.$store.state.ui.password
         },
         set (value) {
-          var user = atob(this.$store.state.ui.auth).substr(0,atob(this.$store.state.ui.auth).indexOf(':'))
-          var auth = btoa(user + ':' + value)
-          this.$store.commit('updateAuth', auth)
+          this.$store.commit('updatePassword', value)
         }
       },
       urlErrors () {
@@ -144,12 +140,12 @@
         this.loading = true
 
         // Projects
-        axios.get(this.$store.state.ui.url + '/rest/api/latest/project?expand=description', 
+        axios.get(this.$store.state.ui.url + '/rest/api/latest/project?expand=description',
           {
-            'headers': { 
+            'headers': {
                 'Content-Type': 'application/json',
                 'Authorization': 'Basic ' + this.$store.state.ui.auth
-            } 
+            }
           })
         .then(response => {
                             this.$store.commit('updateConnected',1)
@@ -178,4 +174,3 @@
     }
   }
 </script>
-

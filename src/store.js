@@ -30,7 +30,8 @@ export const store = new Vuex.Store({
 			page: 'connection',
 			url: 'https://alteryx-vue.atlassian.net',
 			lastUrl: '',
-			auth: '',
+      username: '',
+      password: '',
 			lastAuth: '',
 			connected: 0,
 			connects: 0,
@@ -63,15 +64,14 @@ export const store = new Vuex.Store({
 	  },
 	  updateUsername (state, v) {
 	    state.ui.username = v
+      state.ui.auth = state.ui.username + state.ui.password
 	  },
 	  updatePassword (state, v) {
 	    state.ui.password = v
-	  },
-	  updateAuth (state, v) {
-	    state.ui.auth = v
+      state.ui.auth = state.ui.username + state.ui.password
 	  },
 	  updateLastAuth (state) {
-	  	state.ui.lastAuth = state.ui.auth
+	  	state.ui.lastAuth = auth//state.ui.username + state.ui.password
 	  },
 	  updateConnected (state, v) {
 	    state.ui.connected = v
