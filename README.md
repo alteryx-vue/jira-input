@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/alteryx-vue/jira-input.svg?branch=master)](https://travis-ci.org/alteryx-vue/jira-input) [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
 > An Alteryx Connector built with Vue.js and Vuetify
 
+#### (PRE-RELEASE, UNDER CONSTRUCTION)
+
 The Jira Input connector for Alteryx downloads project issues from your Jira instance REST API.  This is an updated version of the [original Alteryx macro](https://gallery.alteryx.com/#!app/JIRA-Connector/58d87c2feffc2a0dd0b5ed8f) in the public [Alteryx Gallery](https://gallery.alteryx.com).
 
 # New Features
