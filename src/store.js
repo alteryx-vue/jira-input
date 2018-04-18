@@ -29,15 +29,18 @@ export const store = new Vuex.Store({
 			filterMethod: 'basic',
 			page: 'connection',
 			url: 'https://alteryx-vue.atlassian.net',
-			lastUrl: '',
-      username: '',
-      password: '',
+      		username: '',
+      		password: '',
 			lastAuth: '',
 			connected: 0,
 			connects: 0,
 			connectError: 0,
 			apiError: '',
-			stopCheck: false
+			stopCheck: false,
+			decrypting: {
+				password: false,
+				lastAuth: false
+			}
 		}
 	},
 	mutations: {
@@ -51,7 +54,16 @@ export const store = new Vuex.Store({
 	  	state.ui.page = v
 	  },
 	  updateProjects (state, v) {
-	  	state.ui.projects = v
+	  	state.ui.projects = v.map(p => {
+		    return {
+		    	id: p.id,
+		    	key: p.key,
+		    	name: p.name,
+		    	description: p.description,
+		    	type: p.projectTypeKey,
+		    	avatar: p.avatarUrls['32x32']
+		    }
+		})
 	  },
 	  updateSelections (state, v) {
 	  	state.ui.selections = v
@@ -59,19 +71,14 @@ export const store = new Vuex.Store({
 	  updateUrl (state, v) {
 	    state.ui.url = v
 	  },
-	  updateLastUrl (state, v) {
-	    state.ui.lastUrl = state.ui.url
-	  },
 	  updateUsername (state, v) {
 	    state.ui.username = v
-      state.ui.auth = state.ui.username + state.ui.password
 	  },
 	  updatePassword (state, v) {
 	    state.ui.password = v
-      state.ui.auth = state.ui.username + state.ui.password
 	  },
 	  updateLastAuth (state) {
-	  	state.ui.lastAuth = auth//state.ui.username + state.ui.password
+	  	state.ui.lastAuth = state.ui.url + state.ui.username + state.ui.password
 	  },
 	  updateConnected (state, v) {
 	    state.ui.connected = v

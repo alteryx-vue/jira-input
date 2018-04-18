@@ -58,7 +58,7 @@
       showAlert() {
         if (this.$store.state.ui.connected == 0 || this.$store.state.ui.connectError > 0) {
           return true
-        } else if (this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) {
+        } else if (this.auth !== this.$store.state.ui.lastAuth) {
           return true
         } else {
           return false
@@ -67,11 +67,14 @@
       alertText () {
         if (this.$store.state.ui.connected == 0 || this.$store.state.ui.connectError > 0) {
           return 'Whoops!  Not connected to a Jira instance...'
-        } else if (this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) {
+        } else if (this.auth !== this.$store.state.ui.lastAuth) {
           return 'Connection details have changed without being verified...'
         } else {
           return 'Good to go!'
         }
+      },
+      auth() {
+        return this.$store.state.ui.url + this.$store.state.ui.username + this.$store.state.ui.password
       }
     }
   }

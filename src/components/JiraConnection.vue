@@ -54,9 +54,9 @@
     },
     computed: {
       showAlert() {
-        if (this.$store.state.ui.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.url === this.$store.state.ui.lastUrl && this.$store.state.ui.connectError > 0 ) {
+        if (this.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.connectError > 0 ) {
           return true
-        } else if ((this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) && this.$store.state.ui.connects > 0) {
+        } else if (this.auth !== this.$store.state.ui.lastAuth && this.$store.state.ui.connects > 0) {
           return true
         } else if (this.$store.state.ui.connects > 0) {
           return true
@@ -65,9 +65,9 @@
         }
       },
       alertType() {
-        if (this.$store.state.ui.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.url === this.$store.state.ui.lastUrl && this.$store.state.ui.connectError > 0 ) {
+        if (this.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.connectError > 0 ) {
           return 'error'
-        } else if ((this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) && this.$store.state.ui.connects > 0) {
+        } else if (this.auth !== this.$store.state.ui.lastAuth && this.$store.state.ui.connects > 0) {
           return 'info'
         } else {
           return 'success'
@@ -77,9 +77,9 @@
         const err = 'Connection failed! Please check the site URL and/or login credentials.'
         const warn = 'New URL and/or credentials need to be validated...'
         const runworthy = 'Connected'
-        if (this.$store.state.ui.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.url === this.$store.state.ui.lastUrl && this.$store.state.ui.connectError > 0 ) {
+        if (this.auth === this.$store.state.ui.lastAuth && this.$store.state.ui.connectError > 0 ) {
           return err
-        } else if ((this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) && this.$store.state.ui.connects > 0) {
+        } else if (this.auth !== this.$store.state.ui.lastAuth && this.$store.state.ui.connects > 0) {
           return warn
         } else {
           return runworthy
@@ -115,6 +115,9 @@
           this.$store.commit('updatePassword', value)
         }
       },
+      auth() {
+        return this.$store.state.ui.url + this.$store.state.ui.username + this.$store.state.ui.password
+      },
       urlErrors () {
         const errors = []
         if (!this.$v.url.$dirty) return errors
@@ -139,19 +142,20 @@
         this.$v.$touch()
         this.loading = true
 
+        let basicAuth = 'Basic ' + btoa(this.$store.state.ui.username + ':' + this.$store.state.ui.password)
+
         // Projects
         axios.get(this.$store.state.ui.url + '/rest/api/latest/project?expand=description',
           {
             'headers': {
                 'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + this.$store.state.ui.auth
+                'Authorization': basicAuth
             }
           })
         .then(response => {
                             this.$store.commit('updateConnected',1)
                             this.$store.commit('updateConnectError',0)
                             this.$store.commit('updateApiError',null)
-                            this.$store.commit('updateLastUrl')
                             this.$store.commit('updateLastAuth')
                             this.$store.commit('updateConnects')
                             this.$store.commit('updateProjects',response.data)
@@ -163,7 +167,6 @@
                             this.$store.commit('updateConnected',0)
                             this.$store.commit('updateConnectError',1)
                             this.$store.commit('updateApiError',response.message)
-                            this.$store.commit('updateLastUrl')
                             this.$store.commit('updateLastAuth')
                             this.$store.commit('updateConnects')
                             this.$store.commit('updateProjects',[])

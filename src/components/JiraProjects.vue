@@ -2,16 +2,16 @@
 
   <div>
 
-    <v-alert outline type="error" :value="showAlert" class="mb-3 mt-3">
+    <v-alert outline type="error" :value="showAlert && !decrypting" class="mb-3 mt-3">
       {{ alertText }}
     </v-alert>
 
-    <v-list dense two-line v-if="!showAlert"class="pt-0">
-      <v-subheader v-text="projects.length + ' projects available, ' + selected.length + ' selected'"></v-subheader>
+    <v-list dense two-line v-if="!showAlert && !decrypting" class="pt-0">
+      <!-- <v-subheader v-text="projects.length + ' projects available, ' + selected.length + ' selected'"></v-subheader> -->
       <template v-for="project in projects">
         <v-list-tile avatar :key="project.id" @click="">
           <v-list-tile-avatar>
-            <img :src="project.avatarUrls['32x32']">
+            <img :src="project.avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
             <v-list-tile-title>
@@ -52,7 +52,7 @@
       showAlert() {
         if (this.$store.state.ui.connected == 0 || this.$store.state.ui.connectError > 0) {
           return true
-        } else if (this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) {
+        } else if (this.auth !== this.lastAuth) {
           return true
         } else {
           return false
@@ -61,7 +61,7 @@
       alertText () {
         if (this.$store.state.ui.connected == 0 || this.$store.state.ui.connectError > 0) {
           return 'Whoops!  Not connected to a Jira instance...'
-        } else if (this.$store.state.ui.auth !== this.$store.state.ui.lastAuth || this.$store.state.ui.url !== this.$store.state.ui.lastUrl) {
+        } else if (this.auth !== this.lastAuth) {
           return 'Connection details have changed without being verified...'
         } else {
           return 'Good to go!'
@@ -69,6 +69,15 @@
       },
       projects () {
         return this.$store.state.ui.projects
+      },
+      auth() {
+        return this.$store.state.ui.url + this.$store.state.ui.username + this.$store.state.ui.password
+      },
+      lastAuth() {
+        return this.$store.state.ui.lastAuth
+      },
+      decrypting() {
+        return this.$store.state.ui.decrypting.password || this.$store.state.ui.decrypting.lastAuth ? true : false
       }
     },
     methods: {
