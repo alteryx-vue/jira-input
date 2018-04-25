@@ -51,8 +51,15 @@ window.Alteryx.Gui.BeforeLoad = function (manager, AlteryxDataItems, json) {
     )
     manager.addDataItem(encryptedDataItem)
   }
+
+  // ensure that arrays stay arrays...
+  const ensureArray = (field) => {
+    return typeof field == 'string' || (typeof field == 'object' && typeof field.length == 'undefined') ? [field] : typeof field == 'undefined' ? [] : field
+  }
+
   store.state.ui = json.Configuration || store.state.ui
-  store.state.ui.projects = Array.isArray(store.state.ui.projects) ? store.state.ui.projects : [store.state.ui.projects]
+  store.state.ui.projects = ensureArray(store.state.ui.projects)
+  store.state.ui.selections = ensureArray(store.state.ui.selections)
   handleEncryptedConfigField('password')
   handleEncryptedConfigField('lastAuth')
 }

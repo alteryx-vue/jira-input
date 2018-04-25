@@ -17,13 +17,11 @@ The Jira Input connector for Alteryx downloads project issues from your Jira ins
 - [NodeJS/npm](https://nodejs.org)
 
 
-## Install/Download
+## Installation
 
 A compiled build can be installed with the [.YXI installer here]() or by downloading from the [Alteryx Gallery]().  Use the instructions below for installing from source.
 
-### Clone to one of the Alteryx tool directories
-
-Alteryx will typically install tools in one of the following locations:
+#### Alteryx will typically install tools in one of the following locations...
 ``` bash
 C:\Users\{user}\AppData\Roaming\Alteryx\Tools
 C:\Program Files\Alteryx\bin\HtmlPlugins

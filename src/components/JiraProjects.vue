@@ -7,9 +7,9 @@
     </v-alert>
 
     <v-list dense two-line v-if="!showAlert && !decrypting" class="pt-0">
-      <!-- <v-subheader v-text="projects.length + ' projects available, ' + selected.length + ' selected'"></v-subheader> -->
+      <v-subheader v-text="projects.length + ' projects available, ' + selected.length + ' selected'"></v-subheader>
       <template v-for="project in projects">
-        <v-list-tile avatar :key="project.id" @click="">
+        <v-list-tile avatar :key="project.id">
           <v-list-tile-avatar>
             <img :src="project.avatar">
           </v-list-tile-avatar>
@@ -26,7 +26,7 @@
             </v-list-tile-sub-title>
           </v-list-tile-content>
           <v-list-tile-action>
-            <v-checkbox v-model="selected" :value="project.id" @change="updateSelections(project.name, project.id)"></v-checkbox>
+            <v-checkbox v-model="selected" :value="project.id" @change="updateSelections()"></v-checkbox>
           </v-list-tile-action>
         </v-list-tile>
         <v-divider inset></v-divider>
@@ -42,13 +42,12 @@
   	name: 'JiraProjects',
     data() {
       return {
+        page: this.$store.state.ui.page,
+        projects: this.$store.state.ui.projects,
         selected: this.$store.state.ui.selections
       }
     },
     computed: {
-      page() {
-        return this.$store.state.ui.page
-      },
       showAlert() {
         if (this.$store.state.ui.connected == 0 || this.$store.state.ui.connectError > 0) {
           return true
@@ -67,9 +66,6 @@
           return 'Good to go!'
         }
       },
-      projects () {
-        return this.$store.state.ui.projects
-      },
       auth() {
         return this.$store.state.ui.url + this.$store.state.ui.username + this.$store.state.ui.password
       },
@@ -81,9 +77,9 @@
       }
     },
     methods: {
-      updateSelections (a,b) {
-        this.$store.commit('updateSelections',this.selected)
-      }
+      updateSelections() {
+          this.$store.commit('updateSelections',this.selected)
+        }
     }
   }
 </script>
